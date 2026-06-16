@@ -1,0 +1,7 @@
+name=CJS Short Blade Tweaks
+id=cjsShortBladeTweaks
+description=Makes short-blade ground attacks and jaw stabs faster while preventing jaw-stab weapon attachment.
+poster=poster.png
+author=CJ Storrs
+modversion=0.1.0
+versionMin=42.0.0
