@@ -1,0 +1,12 @@
+Sandbox_EN = {
+    Sandbox_CJSShortBladeTweaks = "CJS Short Blade Tweaks",
+
+    Sandbox_CJSShortBladeTweaks_GroundAttackSpeedPercent = "Ground Attack Speed Percent",
+    Sandbox_CJSShortBladeTweaks_GroundAttackSpeedPercent_tooltip = "Scales the short-blade floor stab animation. 100 keeps vanilla timing, 150 is 50% faster, and 300 is triple speed.",
+
+    Sandbox_CJSShortBladeTweaks_JawStabSpeedPercent = "Jaw Stab Speed Percent",
+    Sandbox_CJSShortBladeTweaks_JawStabSpeedPercent_tooltip = "Scales the short-blade jaw-stab execution animation. 100 keeps vanilla timing, 150 is 50% faster, and 300 is triple speed.",
+
+    Sandbox_CJSShortBladeTweaks_PreventJawStabStuck = "Prevent Jaw-Stab Stuck Weapon",
+    Sandbox_CJSShortBladeTweaks_PreventJawStabStuck_tooltip = "Removes the temporary jaw-stab weapon attachment from zombies and restores the blade to the attacker's hand.",
+}

@@ -20,19 +20,19 @@
 		<m_AnimName>Bob_AttackKnife01_CritHitStepBackStart</m_AnimName>
 		<m_XPos>0.00</m_XPos>
 		<m_YPos>0.37</m_YPos>
-		<m_SpeedScale>1.04</m_SpeedScale>
+		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
 	<m_2DBlends referenceID="2">
 		<m_AnimName>Bob_AttackKnife01_CritHitStart</m_AnimName>
 		<m_XPos>0.00</m_XPos>
 		<m_YPos>1.00</m_YPos>
-		<m_SpeedScale>1.04</m_SpeedScale>
+		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
 	<m_2DBlends referenceID="3">
 		<m_AnimName>Bob_AttackKnife01_CritHitCloseStart</m_AnimName>
 		<m_XPos>0.00</m_XPos>
 		<m_YPos>0.00</m_YPos>
-		<m_SpeedScale>1.04</m_SpeedScale>
+		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
 	<m_2DBlendTri>
 		<node1>1</node1>

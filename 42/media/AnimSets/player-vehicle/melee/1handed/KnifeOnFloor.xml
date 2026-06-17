@@ -2,7 +2,7 @@
 <animNode x_extends="KnifeDefault.xml">
 	<m_Name>KnifeOnFloor</m_Name>
 	<m_AnimName>Bob_AttackFloorStab</m_AnimName>
-	<m_SpeedScale>1.30</m_SpeedScale>
+	<m_SpeedScale>CJSShortBladeGroundAttackSpeed</m_SpeedScale>
 	<m_Conditions />
 	<m_Conditions>
 		<m_BoolValue>true</m_BoolValue>

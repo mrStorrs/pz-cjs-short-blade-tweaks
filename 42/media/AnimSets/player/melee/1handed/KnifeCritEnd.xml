@@ -12,15 +12,15 @@
 	</m_Conditions>
 	<m_2DBlends>
 		<m_AnimName>Bob_AttackKnife01_CritHitStepBackEnd</m_AnimName>
-		<m_SpeedScale>1.04</m_SpeedScale>
+		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
 	<m_2DBlends>
 		<m_AnimName>Bob_AttackKnife01_CritHitEnd</m_AnimName>
-		<m_SpeedScale>1.04</m_SpeedScale>
+		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
 	<m_2DBlends>
 		<m_AnimName>Bob_AttackKnife01_CritHitCloseEnd</m_AnimName>
-		<m_SpeedScale>1.04</m_SpeedScale>
+		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
 	<m_Events />
 	<m_Events />

@@ -1,5 +1,14 @@
 local MOD_ID = "cjsShortBladeTweaks"
 local JAW_STAB_SLOT = "JawStab"
+local GROUND_ATTACK_SPEED_VARIABLE = "CJSShortBladeGroundAttackSpeed"
+local JAW_STAB_SPEED_VARIABLE = "CJSShortBladeJawStabSpeed"
+local VANILLA_JAW_STAB_SPEED = 0.80
+
+local DEFAULTS = {
+    GroundAttackSpeedPercent = 150,
+    JawStabSpeedPercent = 150,
+    PreventJawStabStuck = true,
+}
 
 local warned = {}
 local recentHits = setmetatable({}, { __mode = "k" })
@@ -17,6 +26,62 @@ local function safeCall(key, fn)
         return nil
     end
     return result
+end
+
+local function sandboxOption(key)
+    local vars = SandboxVars and SandboxVars.CJSShortBladeTweaks
+    if vars and vars[key] ~= nil then
+        return vars[key]
+    end
+
+    return DEFAULTS[key]
+end
+
+local function clamp(value, minValue, maxValue)
+    if value < minValue then return minValue end
+    if value > maxValue then return maxValue end
+    return value
+end
+
+local function speedPercent(key)
+    local value = tonumber(sandboxOption(key)) or DEFAULTS[key]
+    return clamp(math.floor(value), 50, 300)
+end
+
+local function groundAttackSpeed()
+    return speedPercent("GroundAttackSpeedPercent") / 100
+end
+
+local function jawStabSpeed()
+    return VANILLA_JAW_STAB_SPEED * speedPercent("JawStabSpeedPercent") / 100
+end
+
+local function shouldPreventJawStabStuck()
+    return sandboxOption("PreventJawStabStuck") == true
+end
+
+local function applyAnimationVariables(player)
+    if not player or not player.setVariable then return end
+
+    safeCall("setGroundAttackSpeed", function()
+        player:setVariable(GROUND_ATTACK_SPEED_VARIABLE, groundAttackSpeed())
+    end)
+
+    safeCall("setJawStabSpeed", function()
+        player:setVariable(JAW_STAB_SPEED_VARIABLE, jawStabSpeed())
+    end)
+end
+
+local function applyAnimationVariablesToPlayers()
+    if not getSpecificPlayer then return end
+    if not getNumActivePlayers then
+        applyAnimationVariables(getSpecificPlayer(0))
+        return
+    end
+
+    for playerIndex = 0, getNumActivePlayers() - 1 do
+        applyAnimationVariables(getSpecificPlayer(playerIndex))
+    end
 end
 
 local function isSmallBladeWeapon(weapon)
@@ -100,6 +165,8 @@ local function restorePlayerWeapon(attacker, weapon)
 end
 
 local function cleanJawStab(attacker, target, weapon)
+    applyAnimationVariables(attacker)
+    if not shouldPreventJawStabStuck() then return end
     if not target or not weapon or not isSmallBladeWeapon(weapon) then return end
     if target.isZombie and not target:isZombie() then return end
 
@@ -123,6 +190,8 @@ local function onHitZombie(zombie, attacker, _bodyPartType, weapon)
 end
 
 local function onZombieDead(zombie)
+    if not shouldPreventJawStabStuck() then return end
+
     local hit = zombie and recentHits[zombie]
     if hit then
         cleanJawStab(hit.attacker, zombie, hit.weapon)
@@ -136,6 +205,16 @@ local function onCharacterDeath(character)
     if character and character.isZombie and character:isZombie() then
         onZombieDead(character)
     end
+end
+
+if Events and Events.OnGameStart then
+    Events.OnGameStart.Add(applyAnimationVariablesToPlayers)
+end
+
+if Events and Events.OnCreatePlayer then
+    Events.OnCreatePlayer.Add(function(_playerIndex, player)
+        applyAnimationVariables(player)
+    end)
 end
 
 if Events and Events.OnWeaponHitCharacter then

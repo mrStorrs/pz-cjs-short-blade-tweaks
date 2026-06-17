@@ -1,0 +1,29 @@
+VERSION = 1,
+
+option CJSShortBladeTweaks.GroundAttackSpeedPercent
+{
+    type = integer,
+    min = 50,
+    max = 300,
+    default = 150,
+    page = CJSShortBladeTweaks,
+    translation = CJSShortBladeTweaks_GroundAttackSpeedPercent,
+}
+
+option CJSShortBladeTweaks.JawStabSpeedPercent
+{
+    type = integer,
+    min = 50,
+    max = 300,
+    default = 150,
+    page = CJSShortBladeTweaks,
+    translation = CJSShortBladeTweaks_JawStabSpeedPercent,
+}
+
+option CJSShortBladeTweaks.PreventJawStabStuck
+{
+    type = boolean,
+    default = true,
+    page = CJSShortBladeTweaks,
+    translation = CJSShortBladeTweaks_PreventJawStabStuck,
+}
