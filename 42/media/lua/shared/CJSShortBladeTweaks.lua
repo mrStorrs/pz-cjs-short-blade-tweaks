@@ -13,7 +13,7 @@ local DEFAULTS = {
 
 local warned = {}
 local recentHits = setmetatable({}, { __mode = "k" })
-local forcedManualFloor = setmetatable({}, { __mode = "k" })
+local javaFields = {}
 local isSmallBladeWeapon
 
 local function warnOnce(key, message)
@@ -64,15 +64,28 @@ local function shouldPreventJawStabStuck()
 end
 
 local function findJavaField(object, fieldName)
+    if javaFields[fieldName] ~= nil then
+        return javaFields[fieldName] or nil
+    end
+
     if not object or not getNumClassFields or not getClassField then return nil end
 
-    for index = 0, getNumClassFields(object) - 1 do
-        local field = getClassField(object, index)
+    local fieldCount = safeCall("getNumClassFields." .. fieldName, function()
+        return getNumClassFields(object)
+    end)
+    if not fieldCount then return nil end
+
+    for index = 0, fieldCount - 1 do
+        local field = safeCall("getClassField." .. fieldName .. "." .. tostring(index), function()
+            return getClassField(object, index)
+        end)
         if tostring(field):match("%." .. fieldName .. "$") then
+            javaFields[fieldName] = field
             return field
         end
     end
 
+    javaFields[fieldName] = false
     return nil
 end
 
@@ -85,51 +98,6 @@ local function readJavaField(object, fieldName)
     return safeCall("readJavaField" .. fieldName, function()
         return getClassFieldVal(object, field)
     end)
-end
-
-local function setJavaBooleanField(object, fieldName, value)
-    if not object then return false end
-
-    local directOk = pcall(function()
-        object[fieldName] = value
-    end)
-
-    if readJavaField(object, fieldName) == value then
-        return true
-    end
-
-    local field = findJavaField(object, fieldName)
-    if field then
-        local booleanOk = pcall(function()
-            field:setBoolean(object, value)
-        end)
-
-        if booleanOk and readJavaField(object, fieldName) == value then
-            return true
-        end
-
-        local objectOk = pcall(function()
-            field:set(object, value)
-        end)
-
-        if objectOk and readJavaField(object, fieldName) == value then
-            return true
-        end
-    end
-
-    if not directOk then
-        warnOnce("setJavaField" .. fieldName, "Could not set AttackVars." .. fieldName)
-    end
-
-    return false
-end
-
-local function isKeyDown(keyName)
-    if not GameKeyboard or not GameKeyboard.isKeyDown then return false end
-
-    return safeCall("isKeyDown" .. keyName, function()
-        return GameKeyboard.isKeyDown(keyName)
-    end) == true
 end
 
 local function getEquippedWeapon(player)
@@ -154,6 +122,20 @@ local function isPlayerAimAtFloor(player)
     end) == true
 end
 
+local function isManualFloorAttackDown(player)
+    if not player then return false end
+
+    local buttonDown = safeCall("isManualFloorAtkButtonDown", function()
+        return player:isManualFloorAtkButtonDown()
+    end)
+    if buttonDown ~= nil then return buttonDown == true end
+
+    if not GameKeyboard or not GameKeyboard.isKeyDown then return false end
+    return safeCall("isKeyDownManualFloorAtk", function()
+        return GameKeyboard.isKeyDown("ManualFloorAtk")
+    end) == true
+end
+
 local function isAttackVarsAimAtFloor(player)
     if not player then return false end
 
@@ -161,31 +143,16 @@ local function isAttackVarsAimAtFloor(player)
         return player:getAttackVars()
     end)
 
-    return readJavaField(attackVars, "bAimAtFloor") == true
-end
-
-local function isPerformingAttack(player)
-    if not player then return false end
-
-    local attacking = safeCall("isPerformingAttackAnimation", function()
-        return player:isPerformingAttackAnimation()
-    end)
-
-    if attacking == true then return true end
-
-    return safeCall("isAttackStarted", function()
-        return player:isAttackStarted()
-    end) == true
-end
-
-local function shouldForceManualFloorAttack(player, weapon)
-    return isKeyDown("ManualFloorAtk") and isSmallBladeWeapon(weapon or getEquippedWeapon(player))
+    return readJavaField(attackVars, "aimAtFloor") == true
 end
 
 local function shouldUseFloorAnimation(player, weapon, includeAttackVars)
-    return shouldForceManualFloorAttack(player, weapon)
+    local equippedWeapon = weapon or getEquippedWeapon(player)
+    if not isSmallBladeWeapon(equippedWeapon) then return false end
+
+    return isPlayerAimAtFloor(player)
+        or isManualFloorAttackDown(player)
         or (includeAttackVars and isAttackVarsAimAtFloor(player))
-        or isPlayerAimAtFloor(player)
 end
 
 local function applyFloorAnimationVariable(player, weapon, includeAttackVars)
@@ -235,54 +202,19 @@ function isSmallBladeWeapon(weapon)
     return categories and categories.contains and categories:contains("SmallBlade") or false
 end
 
-local function forceManualFloorAttack(player, weapon, includeAttackVars)
-    if not shouldForceManualFloorAttack(player, weapon) then
-        if player and forcedManualFloor[player] and not isPerformingAttack(player) then
-            safeCall("clearForcedAimAtFloor", function()
-                player:setAimAtFloor(false)
-            end)
-
-            forcedManualFloor[player] = nil
-        end
-
-        applyFloorAnimationVariable(player, weapon, includeAttackVars)
-        return
-    end
-
-    local doShove = isKeyDown("Melee")
-    safeCall("setAimAtFloor", function()
-        player:setAimAtFloor(true)
-    end)
-    forcedManualFloor[player] = true
-
-    safeCall("setDoShove", function()
-        player:setDoShove(doShove)
-    end)
-
-    if includeAttackVars then
-        local attackVars = safeCall("getManualFloorAttackVars", function()
-            return player:getAttackVars()
-        end)
-
-        if attackVars then
-            setJavaBooleanField(attackVars, "bAimAtFloor", true)
-            setJavaBooleanField(attackVars, "bCloseKill", false)
-            setJavaBooleanField(attackVars, "bDoShove", doShove)
-        end
-    end
-
+local function updateFloorAnimation(player, weapon, includeAttackVars)
     applyFloorAnimationVariable(player, weapon, includeAttackVars)
 end
 
-local function updateFloorAttackVariablesForPlayers()
+local function updateFloorAnimationVariablesForPlayers()
     if not getSpecificPlayer then return end
     if not getNumActivePlayers then
-        forceManualFloorAttack(getSpecificPlayer(0), nil, false)
+        updateFloorAnimation(getSpecificPlayer(0), nil, false)
         return
     end
 
     for playerIndex = 0, getNumActivePlayers() - 1 do
-        forceManualFloorAttack(getSpecificPlayer(playerIndex), nil, false)
+        updateFloorAnimation(getSpecificPlayer(playerIndex), nil, false)
     end
 end
 
@@ -375,7 +307,7 @@ local function onWeaponHitXp(attacker, weapon, target)
 end
 
 local function onWeaponSwing(player, weapon)
-    forceManualFloorAttack(player, weapon, true)
+    updateFloorAnimation(player, weapon, true)
 end
 
 local function onHitZombie(zombie, attacker, _bodyPartType, weapon)
@@ -411,7 +343,7 @@ if Events and Events.OnCreatePlayer then
 end
 
 if Events and Events.OnTick then
-    Events.OnTick.Add(updateFloorAttackVariablesForPlayers)
+    Events.OnTick.Add(updateFloorAnimationVariablesForPlayers)
 end
 
 if Events and Events.OnWeaponSwing then
