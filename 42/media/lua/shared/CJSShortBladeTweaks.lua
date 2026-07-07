@@ -128,12 +128,15 @@ local function isManualFloorAttackDown(player)
     local buttonDown = safeCall("isManualFloorAtkButtonDown", function()
         return player:isManualFloorAtkButtonDown()
     end)
-    if buttonDown ~= nil then return buttonDown == true end
 
-    if not GameKeyboard or not GameKeyboard.isKeyDown then return false end
-    return safeCall("isKeyDownManualFloorAtk", function()
-        return GameKeyboard.isKeyDown("ManualFloorAtk")
-    end) == true
+    local rawButtonDown = false
+    if GameKeyboard and GameKeyboard.isKeyDown then
+        rawButtonDown = safeCall("isKeyDownManualFloorAtk", function()
+            return GameKeyboard.isKeyDown("ManualFloorAtk")
+        end) == true
+    end
+
+    return buttonDown == true or rawButtonDown
 end
 
 local function isAttackVarsAimAtFloor(player)
