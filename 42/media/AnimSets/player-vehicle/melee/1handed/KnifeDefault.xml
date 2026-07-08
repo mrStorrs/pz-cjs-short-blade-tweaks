@@ -14,7 +14,7 @@
 		<m_Value>knife</m_Value>
 	</m_Conditions>
 	<m_Conditions x_name="b8df23ee-8d00-4bc1-94b8-ee74593bb7b5">
-		<m_Name>CJSShortBladeAimFloorAnim</m_Name>
+		<m_Name>AimFloorAnim</m_Name>
 		<m_Type>BOOL</m_Type>
 		<m_Value>false</m_Value>
 	</m_Conditions>
