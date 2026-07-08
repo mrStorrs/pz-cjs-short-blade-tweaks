@@ -2,29 +2,19 @@
 <animNode x_extends="KnifeCritStart.xml">
 	<m_Name>KnifeCritEnd</m_Name>
 	<m_AnimName>Bob_AttackKnife01_CritHitEnd</m_AnimName>
-	<m_Conditions />
-	<m_Conditions />
-	<m_Conditions />
-	<m_Conditions>
-		<m_Name>KnifeCritStarted</m_Name>
-		<m_Type>BOOL</m_Type>
-		<m_BoolValue>true</m_BoolValue>
-	</m_Conditions>
 	<m_2DBlends>
 		<m_AnimName>Bob_AttackKnife01_CritHitStepBackEnd</m_AnimName>
-		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
 	<m_2DBlends>
 		<m_AnimName>Bob_AttackKnife01_CritHitEnd</m_AnimName>
-		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
 	<m_2DBlends>
 		<m_AnimName>Bob_AttackKnife01_CritHitCloseEnd</m_AnimName>
-		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
-	<m_Events />
-	<m_Events />
-	<m_Events>
+	<m_Conditions x_name="5512b134-1aab-4216-b416-eabfd0e73825">
+		<m_Name>KnifeCritStarted</m_Name>
+	</m_Conditions>
+	<m_Events x_name="f7cbf274-9778-45fb-8df1-d41edf894026">
 		<m_ParameterValue>KnifeCritStarted=false</m_ParameterValue>
 	</m_Events>
 </animNode>

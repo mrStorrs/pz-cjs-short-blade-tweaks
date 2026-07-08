@@ -3,22 +3,15 @@
 	<m_Name>KnifeOnFloor</m_Name>
 	<m_AnimName>Bob_AttackFloorStab</m_AnimName>
 	<m_SpeedScale>CJSShortBladeGroundAttackSpeed</m_SpeedScale>
-	<m_Conditions />
-	<m_Conditions>
-		<m_BoolValue>true</m_BoolValue>
+	<m_Conditions x_name="b8df23ee-8d00-4bc1-94b8-ee74593bb7b5">
+		<m_Value>true</m_Value>
 	</m_Conditions>
-	<m_Events>
+	<m_Events x_name="dbba62a2-2076-4c1c-a8cf-26a98e9f7dfd">
 		<m_ParameterValue>ZombieHitReaction=Floor</m_ParameterValue>
 	</m_Events>
-	<m_Events>
+	<m_Events x_name="0cf1ec42-9db9-4f74-bddb-4c606eae4689">
 		<m_TimePc>0.4</m_TimePc>
 	</m_Events>
-	<m_Events />
-	<m_Events />
-	<m_Events>
-		<m_Time>End</m_Time>
-	</m_Events>
-	<m_Events />
 	<m_SubStateBoneWeights>
 		<boneName>Dummy01</boneName>
 	</m_SubStateBoneWeights>

@@ -4,18 +4,6 @@
 	<m_AnimName>Bob_AttackKnife01_CritHitStart</m_AnimName>
 	<m_Scalar>targetDist</m_Scalar>
 	<m_Scalar2>targetDist</m_Scalar2>
-	<m_Conditions />
-	<m_Conditions />
-	<m_Conditions>
-		<m_Name>CriticalHit</m_Name>
-		<m_Type>BOOL</m_Type>
-		<m_BoolValue>true</m_BoolValue>
-	</m_Conditions>
-	<m_Conditions>
-		<m_Name>prout</m_Name>
-		<m_Type>BOOL</m_Type>
-		<m_BoolValue>true</m_BoolValue>
-	</m_Conditions>
 	<m_2DBlends referenceID="1">
 		<m_AnimName>Bob_AttackKnife01_CritHitStepBackStart</m_AnimName>
 		<m_XPos>0.00</m_XPos>
@@ -34,27 +22,34 @@
 		<m_YPos>0.00</m_YPos>
 		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
+	<m_Conditions x_name="a284cc5b-17e0-4cc8-8120-59cf5c6da04f">
+		<m_Name>CriticalHit</m_Name>
+		<m_Type>BOOL</m_Type>
+		<m_Value>true</m_Value>
+	</m_Conditions>
+	<m_Conditions x_name="4fb9f600-353b-4b5d-a5ac-11a190187e46">
+		<m_Name>prout</m_Name>
+		<m_Type>BOOL</m_Type>
+		<m_Value>true</m_Value>
+	</m_Conditions>
+	<m_Events x_name="dbba62a2-2076-4c1c-a8cf-26a98e9f7dfd">
+		<m_ParameterValue>ZombieHitReaction=KnifeDeath</m_ParameterValue>
+	</m_Events>
+	<m_Events x_name="0cf1ec42-9db9-4f74-bddb-4c606eae4689">
+		<m_TimePc>0.5</m_TimePc>
+	</m_Events>
+	<m_Events x_name="1ae5f635-3a66-481e-bc63-131dbc1af217">
+		<m_EventName>SetVariable</m_EventName>
+		<m_ParameterValue>KnifeCritStarted=true</m_ParameterValue>
+	</m_Events>
+	<m_Events x_name="26c5cc62-ccde-4c4c-9f51-4aea830e817c">
+		<m_ParameterValue>0</m_ParameterValue>
+	</m_Events>
 	<m_2DBlendTri>
 		<node1>1</node1>
 		<node2>2</node2>
 		<node3>3</node3>
 	</m_2DBlendTri>
-	<m_Events>
-		<m_ParameterValue>ZombieHitReaction=KnifeDeath</m_ParameterValue>
-	</m_Events>
-	<m_Events>
-		<m_TimePc>0.5</m_TimePc>
-	</m_Events>
-	<m_Events />
-	<m_Events />
-	<m_Events>
-		<m_EventName>SetVariable</m_EventName>
-		<m_ParameterValue>KnifeCritStarted=true</m_ParameterValue>
-	</m_Events>
-	<m_Events />
-	<m_Events>
-		<m_ParameterValue>0</m_ParameterValue>
-	</m_Events>
 	<m_SubStateBoneWeights>
 		<boneName>Dummy01</boneName>
 	</m_SubStateBoneWeights>

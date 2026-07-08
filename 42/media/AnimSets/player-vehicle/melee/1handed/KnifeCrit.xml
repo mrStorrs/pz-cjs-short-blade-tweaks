@@ -4,13 +4,6 @@
 	<m_AnimName>Bob_AttackKnife01_CritHit</m_AnimName>
 	<m_Scalar>targetDist</m_Scalar>
 	<m_Scalar2>targetDist</m_Scalar2>
-	<m_Conditions />
-	<m_Conditions />
-	<m_Conditions>
-		<m_Name>CriticalHit</m_Name>
-		<m_Type>BOOL</m_Type>
-		<m_BoolValue>true</m_BoolValue>
-	</m_Conditions>
 	<m_2DBlends referenceID="1">
 		<m_AnimName>Bob_AttackKnife01_CritHitStepBack</m_AnimName>
 		<m_XPos>0.00</m_XPos>
@@ -29,39 +22,39 @@
 		<m_YPos>0.00</m_YPos>
 		<m_SpeedScale>CJSShortBladeJawStabSpeed</m_SpeedScale>
 	</m_2DBlends>
+	<m_Conditions x_name="2f857862-53eb-4708-8a6d-a825e061f16f">
+		<m_Name>CriticalHit</m_Name>
+		<m_Type>BOOL</m_Type>
+		<m_Value>true</m_Value>
+	</m_Conditions>
+	<m_Events x_name="dbba62a2-2076-4c1c-a8cf-26a98e9f7dfd">
+		<m_ParameterValue>ZombieHitReaction=KnifeDeath</m_ParameterValue>
+	</m_Events>
+	<m_Events x_name="0cf1ec42-9db9-4f74-bddb-4c606eae4689">
+		<m_TimePc>0.35</m_TimePc>
+	</m_Events>
+	<m_Events x_name="26c5cc62-ccde-4c4c-9f51-4aea830e817c">
+		<m_ParameterValue>0</m_ParameterValue>
+	</m_Events>
+	<m_Events x_name="5eba4528-c5de-47ef-a854-f8747547ca07">
+		<m_EventName>BlockTurn</m_EventName>
+		<m_ParameterValue>TRUE</m_ParameterValue>
+	</m_Events>
+	<m_Events x_name="5a1d72a3-08e6-434b-9555-b228c71ce89e">
+		<m_EventName>BlockTurn</m_EventName>
+		<m_Time>End</m_Time>
+		<m_ParameterValue>FALSE</m_ParameterValue>
+	</m_Events>
+	<m_Events x_name="ecf0e36e-ce51-4ef8-8c64-b37c6c0e32df">
+		<m_EventName>PlaySwingSound</m_EventName>
+		<m_Time>Start</m_Time>
+		<m_ParameterValue></m_ParameterValue>
+	</m_Events>
 	<m_2DBlendTri>
 		<node1>1</node1>
 		<node2>2</node2>
 		<node3>3</node3>
 	</m_2DBlendTri>
-	<m_Events>
-		<m_ParameterValue>ZombieHitReaction=KnifeDeath</m_ParameterValue>
-	</m_Events>
-	<m_Events>
-		<m_TimePc>0.35</m_TimePc>
-	</m_Events>
-	<m_Events />
-	<m_Events />
-	<m_Events />
-	<m_Events />
-	<m_Events>
-		<m_ParameterValue>0</m_ParameterValue>
-	</m_Events>
-	<m_Events>
-		<m_EventName>BlockTurn</m_EventName>
-		<m_Time>Start</m_Time>
-		<m_ParameterValue>TRUE</m_ParameterValue>
-	</m_Events>
-	<m_Events>
-		<m_EventName>BlockTurn</m_EventName>
-		<m_Time>End</m_Time>
-		<m_ParameterValue>FALSE</m_ParameterValue>
-	</m_Events>
-	<m_Events>
-		<m_EventName>PlaySwingSound</m_EventName>
-		<m_Time>Start</m_Time>
-		<m_ParameterValue></m_ParameterValue>
-	</m_Events>
 	<m_SubStateBoneWeights>
 		<boneName>Dummy01</boneName>
 	</m_SubStateBoneWeights>

@@ -1,60 +1,59 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <animNode>
 	<m_Name>KnifeDefault</m_Name>
-	<m_AnimName>Bob_AttackKnife01_Hit</m_AnimName>
 	<m_Priority>4</m_Priority>
-	<m_deferredBoneAxis>Y</m_deferredBoneAxis>
+	<m_AnimName>Bob_AttackKnife01_Hit</m_AnimName>
 	<m_Looped>false</m_Looped>
-	<m_EarlyTransitionOut>true</m_EarlyTransitionOut>
-	<m_SpeedScale>CombatSpeed</m_SpeedScale>
 	<m_BlendTime>0.15</m_BlendTime>
 	<m_BlendOutTime>0.25</m_BlendOutTime>
-	<m_Conditions>
+	<m_EarlyTransitionOut>true</m_EarlyTransitionOut>
+	<m_SpeedScale>CombatSpeed</m_SpeedScale>
+	<m_Conditions x_name="71dc40f4-8a6f-451b-bf92-c066c91355f3">
 		<m_Name>Weapon</m_Name>
 		<m_Type>STRING</m_Type>
-		<m_StringValue>knife</m_StringValue>
+		<m_Value>knife</m_Value>
 	</m_Conditions>
-	<m_Conditions>
+	<m_Conditions x_name="b8df23ee-8d00-4bc1-94b8-ee74593bb7b5">
 		<m_Name>CJSShortBladeAimFloorAnim</m_Name>
 		<m_Type>BOOL</m_Type>
-		<m_BoolValue>false</m_BoolValue>
+		<m_Value>false</m_Value>
 	</m_Conditions>
-	<m_Events>
+	<m_Events x_name="dbba62a2-2076-4c1c-a8cf-26a98e9f7dfd">
 		<m_EventName>SetVariable</m_EventName>
 		<m_TimePc>0.1</m_TimePc>
 		<m_ParameterValue>ZombieHitReaction=Uppercut</m_ParameterValue>
 	</m_Events>
-	<m_Events>
+	<m_Events x_name="0cf1ec42-9db9-4f74-bddb-4c606eae4689">
 		<m_EventName>AttackCollisionCheck</m_EventName>
 		<m_TimePc>0.25</m_TimePc>
-		<m_ParameterValue></m_ParameterValue>
+		<m_ParameterValue>MeleeStab</m_ParameterValue>
 	</m_Events>
-	<m_Events>
+	<m_Events x_name="ec7fe5a8-e339-4d4b-8cf3-0ac6308dc2cf">
 		<m_EventName>AttackAnim</m_EventName>
 		<m_Time>Start</m_Time>
 		<m_ParameterValue>TRUE</m_ParameterValue>
 	</m_Events>
-	<m_Events>
+	<m_Events x_name="bdfb4931-034c-4d4b-9675-e09d22029ab3">
 		<m_EventName>AttackAnim</m_EventName>
 		<m_Time>End</m_Time>
 		<m_ParameterValue>FALSE</m_ParameterValue>
 	</m_Events>
-	<m_Events>
+	<m_Events x_name="1ae5f635-3a66-481e-bc63-131dbc1af217">
 		<m_EventName>BlockMovement</m_EventName>
 		<m_Time>End</m_Time>
 		<m_ParameterValue>FALSE</m_ParameterValue>
 	</m_Events>
-	<m_Events>
+	<m_Events x_name="d83c0423-e4da-4adf-aab4-6e9875f102ca">
 		<m_EventName>BlockMovement</m_EventName>
 		<m_TimePc>0.1</m_TimePc>
 		<m_ParameterValue>TRUE</m_ParameterValue>
 	</m_Events>
-	<m_Events>
+	<m_Events x_name="26c5cc62-ccde-4c4c-9f51-4aea830e817c">
 		<m_EventName>SetMeleeDelay</m_EventName>
 		<m_Time>End</m_Time>
 		<m_ParameterValue>8</m_ParameterValue>
 	</m_Events>
-	<m_Events>
+	<m_Events x_name="5eba4528-c5de-47ef-a854-f8747547ca07">
 		<m_EventName>PlaySwingSound</m_EventName>
 		<m_Time>Start</m_Time>
 		<m_ParameterValue></m_ParameterValue>
